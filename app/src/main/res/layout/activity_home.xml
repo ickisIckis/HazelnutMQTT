@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/mainLayout"
+    android:orientation="vertical"
+    android:background="#fff">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/topSection"
+        android:padding="5dp"
+        android:layout_marginTop="5dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#00000000"
+            android:gravity="end|center"
+            android:id="@+id/Theme">
+
+            <ImageView
+                android:layout_width="49dp"
+                android:id="@+id/imageView"
+                android:src="@drawable/leaves"
+                android:layout_height="match_parent"
+                android:background="#00000000" />
+
+            <TextView
+                android:text="@string/app_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView"
+                android:layout_weight="1"
+                android:textSize="24sp"
+                android:fontFamily="casual"
+                android:textAllCaps="false"
+                android:background="#00000000"
+                android:textColor="#363636" />
+        </LinearLayout>
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/information_button"
+            android:id="@+id/imageButton_Connection"
+            android:layout_weight="4"
+            android:background="#00000000" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:text="@string/air"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView14"
+        android:textSize="18sp"
+        android:textAlignment="center" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/airSensorsData"
+        android:background="#0989c7"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
+
+        <TextView
+            android:text="@string/temperature_value"
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/thermometer"
+            android:drawablePadding="2dp"
+            android:id="@+id/tempData"
+            android:background="#fff"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:text="@string/luminosity_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/luminosity"
+            android:drawablePadding="2dp"
+            android:background="#fff"
+            android:padding="5dp"
+            android:id="@+id/luminosity"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <TextView
+            android:text="@string/airHumidity_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/humidity_blue"
+            android:drawablePadding="2dp"
+            android:background="#fff"
+            android:padding="5dp"
+            android:id="@+id/airHumidity"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/soilAndWaterSensorsData">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/soil"
+            android:layout_weight="1">
+
+            <TextView
+                android:text="@string/soil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/soilTextView"
+                android:textAlignment="center" />
+
+            <TextView
+                android:text="@string/soilHumidity_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/soilHumidity"
+                android:drawableTop="@drawable/humidity_blue"
+                android:drawablePadding="5dp"
+                android:layout_marginTop="5dp"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/water"
+            android:layout_weight="1">
+
+            <TextView
+                android:text="@string/water"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/waterTextView"
+                android:textAlignment="center" />
+
+            <TextView
+                android:text="@string/waterInventory_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/line_chart_blue"
+                android:drawablePadding="5dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/waterInventory"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/watering"
+        android:layout_marginTop="5dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageButton_Pour"
+                android:background="#0989c7"
+                android:padding="5dp"
+                android:src="@drawable/poor_water_white"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp" />
+
+            <TextView
+                android:text="@string/pour_water"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/pourWater"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageButton_Spring"
+                android:background="#0989c7"
+                android:padding="5dp"
+                android:src="@drawable/drops_of_water"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp" />
+
+            <TextView
+                android:text="@string/spring_water"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/springWater"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/forecast"></LinearLayout>
+</LinearLayout>

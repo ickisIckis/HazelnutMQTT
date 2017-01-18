@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Hazelnut</string>
+    <string name="air">Воздух</string>
+    <string name="soil">Влажность почвы</string>
+    <string name="water">Запас воды</string>
+    <string name="temperature_value">-17C</string>
+    <string name="luminosity_value">250Вт/м2</string>
+    <string name="airHumidity_value">70%</string>
+    <string name="soilHumidity_value">20%</string>
+    <string name="waterInventory_value">тут будет график</string>
+    <string name="pour_water">Включить полив</string>
+    <string name="spring_water">Включить орошение</string>
+</resources>
