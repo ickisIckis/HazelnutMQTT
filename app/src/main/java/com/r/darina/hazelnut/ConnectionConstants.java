@@ -5,8 +5,8 @@ package com.r.darina.hazelnut;
  */
 
 public class ConnectionConstants {
-    final static String BROKER_URI = "tcp://m13.cloudmqtt.com:13514";
-    final static int PORT = 13514;
-    final static String USER = "bcxyzuyr";
-    final static String PASS = "LYqDjOMSRwyx";
+    final static String BROKER_URI = "***";
+    final static int PORT = ***;
+    final static String USER = "***";
+    final static String PASS = "***";
 }
