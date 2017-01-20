@@ -8,13 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 public class HomeActivity extends AppCompatActivity implements Connection.MqttObserver {
-    public static final String APP_PREFERENCES = "hazelnutsettings";
-    public static final String APP_PREFERENCES_HUMIDITY = "100";
-    private SharedPreferences mSettings;
+    public static final String APP_PREFERENCES = "SensorsDataSettings";
 
     private ImageButton mSpringOn;
     private ImageButton mWateringOn;
@@ -27,13 +23,6 @@ public class HomeActivity extends AppCompatActivity implements Connection.MqttOb
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-
-
-        if (mSettings.contains(APP_PREFERENCES_HUMIDITY)) {
-            mSoilHumidityData.setText(mSettings.getString(APP_PREFERENCES_HUMIDITY, "??"));
-        }
-
         mSpringOn = (ImageButton) findViewById(R.id.imageButton_Spring);
         mWateringOn = (ImageButton) findViewById(R.id.imageButton_Pour);
         mConnectOn = (ImageButton) findViewById(R.id.imageButton_Connection);
@@ -43,6 +32,7 @@ public class HomeActivity extends AppCompatActivity implements Connection.MqttOb
 
         mConnection = new Connection(getApplicationContext());
         mConnection.setMqttObserver(this);
+        setLastSensorData();
 
     }
 
@@ -51,10 +41,7 @@ public class HomeActivity extends AppCompatActivity implements Connection.MqttOb
 
             @Override
             public void onClick(View arg0) {
-                mConnection.pub("/test", "hello from connection class");
-                Toast.makeText(HomeActivity.this,
-                        "Spring!", Toast.LENGTH_SHORT).show();
-
+                mConnection.pub("/hazelnutapp", "getHumidity");
             }
 
         });
@@ -62,8 +49,7 @@ public class HomeActivity extends AppCompatActivity implements Connection.MqttOb
         mWateringOn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Toast.makeText(HomeActivity.this,
-                        "pour", Toast.LENGTH_SHORT).show();
+                mConnection.pub("/insidetest", "20");
             }
         });
 
@@ -71,8 +57,6 @@ public class HomeActivity extends AppCompatActivity implements Connection.MqttOb
             @Override
             public void onClick(View arg0) {
 
-                Toast.makeText(HomeActivity.this,
-                        "click!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -80,9 +64,21 @@ public class HomeActivity extends AppCompatActivity implements Connection.MqttOb
 
     @Override
     public void onMqttResponse(String msg) {
-        System.out.println("!!!!!!!!!");
-        SharedPreferences.Editor editor = mSettings.edit();
-        System.out.println("Update called with Arguments: " + msg);
+        mSoilHumidityData.setText(msg + "%");
+        saveNewData(msg);
     }
 
+    private void saveNewData(String sensorData) {
+        SharedPreferences preferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("humidity", sensorData);
+        editor.apply();
+    }
+
+    private void setLastSensorData() {
+        SharedPreferences preferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
+        String humidityData = preferences.getString("humidity" + "%", "--");
+        mSoilHumidityData.setText(humidityData);
+    }
 }

@@ -1,6 +1,7 @@
 package com.r.darina.hazelnut;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -22,20 +23,20 @@ public class Connection {
     MqttAndroidClient client;
     private MqttConnectOptions options;
 
-    private String broker;
-    private String user;
-    private String password;
-    private String clientId;
+    private String mBroker;
+    private String mUser;
+    private String mPassword;
+    private String mClientID;
 
     String recivedMessage;
     private MqttObserver mObserver;
 
     public Connection(Context context) {
         this.context = context;
-        broker = ConnectionConstants.BROKER_URI;
-        user = ConnectionConstants.USER;
-        password = ConnectionConstants.PASS;
-        clientId = "androidSampleClient";
+        mBroker = ConnectionConstants.BROKER_URI;
+        mUser = ConnectionConstants.USER;
+        mPassword = ConnectionConstants.PASS;
+        mClientID = "androidSampleClient";
         initMqttConnection();
     }
 
@@ -44,40 +45,37 @@ public class Connection {
     }
 
     private void initMqttConnection() {
-        client = new MqttAndroidClient(context, broker, clientId);
+        client = new MqttAndroidClient(context, mBroker, mClientID);
         client.setCallback(new MqttCallback() {
             @Override
             public void connectionLost(Throwable cause) {
-                System.out.println("Connection was lost!");
+                Toast.makeText(context, "connection was lost", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void messageArrived(String topic, MqttMessage message) throws Exception {
                 recivedMessage = new String(message.getPayload());
-                System.out.println("Message Arrived!: " + topic + ": " + recivedMessage);
                 setNewMessage(recivedMessage);
             }
 
             @Override
             public void deliveryComplete(IMqttDeliveryToken token) {
-                System.out.println("Delivery Complete!");
+                Toast.makeText(context, "delivered!", Toast.LENGTH_SHORT).show();
             }
         });
 
         options = new MqttConnectOptions();
-        options.setUserName(user);
-        options.setPassword(password.toCharArray());
+        options.setUserName(mUser);
+        options.setPassword(mPassword.toCharArray());
 
         try {
             IMqttToken token = client.connect(options);
             token.setActionCallback(new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-                    System.out.println("Connection Success!");
                     try {
-                        System.out.println("Subscribing to /iskra");
-                        client.subscribe("/test", 0);
-                        System.out.println("Subscribed to /iskra");
+                        client.subscribe("/iskra", 0);
+                        client.subscribe("/insidetest", 0);
                     } catch (MqttException ex) {
                         System.out.println(ex);
                     }
@@ -96,16 +94,13 @@ public class Connection {
 
     public void sub(String topic) {
         try {
-            System.out.println("Subscribing to " + topic);
             client.subscribe(topic, 0);
-            System.out.println("Subscribed to " + topic);
         } catch (MqttException ex) {
 
         }
     }
 
     public void pub(String topic, String message) {
-        System.out.println("Publishing message..");
         try {
             client.publish(topic, new MqttMessage(message.getBytes()));
         } catch (MqttException e) {
@@ -114,15 +109,8 @@ public class Connection {
     }
 
     public void setNewMessage(String msg) {
-        // if value has changed notify observers
-        if (!recivedMessage.equals(msg)) {
-            System.out.println("Message changed to : " + msg);
-            recivedMessage = msg;
-
-            // mark as value changed
-            mObserver.onMqttResponse(msg);
-            System.out.println("MUST BE NOTIFIED");
-        }
+        recivedMessage = msg;
+        mObserver.onMqttResponse(msg);
     }
 
     public interface MqttObserver {

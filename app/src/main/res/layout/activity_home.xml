@@ -202,6 +202,12 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/pourWater"
                 android:textAlignment="center" />
+            <TextView
+                android:text="@string/insidetest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/pourWater2"
+                android:textAlignment="center" />
         </LinearLayout>
 
         <LinearLayout
@@ -225,6 +231,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/springWater"
+                android:textAlignment="center" />
+            <TextView
+                android:text="@string/iskratest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/springWater2"
                 android:textAlignment="center" />
         </LinearLayout>
 
